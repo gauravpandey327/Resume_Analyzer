@@ -1,0 +1,4 @@
+# os
+PyPDF2
+nltk
+# re

@@ -1,0 +1,101 @@
+keyword_list = [
+    # Programming Languages
+    'python', 'java', 'javascript', 'c++', 'c#', 'ruby', 'go', 'swift', 'typescript', 'php', 
+    'scala', 'kotlin', 'r', 'perl', 'lua', 'sql', 'html', 'css', 'dart', 'bash', 'powershell', 
+    'rust', 'elixir', 'clojure', 'haskell', 'matlab', 'vba', 'groovy', 'objective-c', 
+    'assembly', 'shell scripting', 'f#', 'visual basic', 'fortran', 'cobol', 'pascal', 
+    
+    # Web Development Frameworks
+    'django', 'flask', 'spring', 'react.js', 'angular.js', 'vue.js', 'node.js', 'express.js', 
+    'laravel', 'ruby on rails', 'ASP.NET', 'Symfony', 'Zend', 'Ember.js', 'Svelte', 'Gatsby', 
+    'Next.js', 'Nuxt.js', 'Meteor', 'blazor', 'backbone.js', 'polymer', 'aurelia', 
+    
+    # Mobile Development
+    'android development', 'ios development', 'react native', 'flutter', 'xamarin', 'ionic', 
+    'cordova', 'swiftui', 'kotlin native', 'mobile UI/UX design', 'mobile app testing', 
+    'cross-platform development', 
+    
+    # Database Management
+    'mysql', 'mongodb', 'postgresql', 'sqlite', 'oracle', 'sql server', 'firebase', 'dynamodb', 
+    'cassandra', 'redis', 'neo4j', 'elasticsearch', 'couchbase', 'mariaDB', 'arangodb', 
+    'bigtable', 'cockroachDB', 'greenplum', 'teradata', 
+    
+    # Cloud Platforms & Services
+    'aws', 'azure', 'google cloud platform', 'IBM cloud', 'oracle cloud', 'salesforce', 
+    'heroku', 'digitalocean', 'linode', 'alibaba cloud', 'cloudflare', 'netlify', 'Vercel', 
+    's3', 'ec2', 'lambda', 'cloudfront', 'gcp compute engine', 'azure devops', 'aws sagemaker', 
+    
+    # DevOps & CI/CD Tools
+    'docker', 'kubernetes', 'jenkins', 'gitlab ci', 'github actions', 'ansible', 'terraform', 
+    'puppet', 'chef', 'vagrant', 'circleci', 'travis ci', 'azure devops', 'bitbucket pipelines', 
+    'spinnaker', 'bamboo', 'saltstack', 'octopus deploy', 
+    
+    # Backend Technologies & Web Servers
+    'nginx', 'apache', 'tomcat', 'iis', 'express', 'fastapi', 'gunicorn', 'uWSGI', 'Caddy', 
+    'jetty', 'lighttpd', 'microsoft iis', 'wildfly', 
+    
+    # Frontend Technologies & Tools
+    'react', 'vue', 'angular', 'svelte', 'tailwind css', 'bootstrap', 'foundation', 
+    'material-ui', 'ant design', 'webpack', 'babel', 'eslint', 'prettier', 'sass', 'less', 
+    'gulp', 'grunt', 'storybook', 'figma', 'adobe xd', 'sketch', 'invision', 'affinity designer', 
+    
+    # Version Control Systems
+    'git', 'svn', 'mercurial', 'perforce', 'bitbucket', 'gitlab', 'github', 
+    
+    # Testing Frameworks & Tools
+    'jest', 'mocha', 'jasmine', 'selenium', 'webdriverio', 'cypress', 'testcafe', 'karma', 
+    'protractor', 'pytest', 'unittest', 'junit', 'testng', 'rspec', 'cucumber', 'postman', 
+    'insomnia', 'soapui', 'jmeter', 'locust', 'robot framework', 
+    
+    # Machine Learning, AI & Data Science
+    'tensorflow', 'keras', 'pytorch', 'scikit-learn', 'pandas', 'numpy', 'matplotlib', 'seaborn', 
+    'ggplot2', 'dplyr', 'tidyr', 'nltk', 'spaCy', 'gensim', 'openai gpt', 'bert', 'yolo', 'opencv', 
+    'fastai', 'huggingface transformers', 'mlflow', 'kubeflow', 'jupyter', 'tableau', 'power bi', 
+    'qlik sense', 'alteryx', 'dataiku', 
+    
+    # Big Data Technologies
+    'hadoop', 'spark', 'hive', 'pig', 'flink', 'kafka', 'airflow', 'luigi', 'presto', 'druid', 
+    'impala', 'storm', 'samza', 'sqoop', 'oozie', 'zeppelin', 'ambari', 'cassandra', 'hbase', 
+    'accumulo', 'bigquery', 'snowflake', 'redshift', 'databricks', 'azkaban', 'pinot', 
+    
+    # Networking & Security
+    'tcp/ip', 'http', 'https', 'dns', 'ssl/tls', 'firewall', 'load balancer', 'vpn', 'ssh', 
+    'network protocols', 'cybersecurity', 'penetration testing', 'ethical hacking', 
+    'intrusion detection', 'malware analysis', 'security operations center', 'network security', 
+    'cloud security', 'application security', 'data encryption', 'cryptography', 'compliance', 
+    'GDPR', 'ISO 27001', 'OWASP', 
+    
+    # Project Management & Agile Tools
+    'agile', 'scrum', 'kanban', 'waterfall', 'lean', 'six sigma', 'project management', 'jira', 
+    'trello', 'asana', 'monday.com', 'smartsheet', 'basecamp', 'microsoft project', 
+    'risk management', 'stakeholder management', 'sprint planning', 'retrospectives', 
+    'backlog grooming', 'SAFe', 'scrum master', 'product owner', 
+    
+    # Business Intelligence & Analytics
+    'business intelligence', 'data analytics', 'data visualization', 'bi tools', 'tableau', 
+    'power bi', 'qlikview', 'qlik sense', 'sap business objects', 'google analytics', 
+    'adobe analytics', 'mixpanel', 'looker', 'snowflake', 'data warehousing', 'etl processes', 
+    'sql', 'data mining', 'predictive analytics', 'customer insights', 'market analysis', 
+    
+    # UX/UI Design
+    'user experience (ux)', 'user interface (ui)', 'figma', 'adobe xd', 'sketch', 'invision', 
+    'prototyping', 'wireframing', 'usability testing', 'interaction design', 'visual design', 
+    'responsive design', 'accessibility', 'user research', 'persona development', 
+    'information architecture', 'color theory', 'typography', 'branding', 'motion design', 
+    
+    # Soft Skills
+    'communication', 'teamwork', 'adaptability', 'problem-solving', 'critical thinking', 
+    'creativity', 'leadership', 'time management', 'emotional intelligence', 'conflict resolution', 
+    'negotiation', 'persuasion', 'customer service', 'decision making', 'ethics', 
+    'interpersonal skills', 'stress management', 'organizational skills', 'motivation', 'feedback',
+    
+    # Miscellaneous Technologies & Concepts
+    'blockchain', 'cryptocurrency', 'smart contracts', 'ethereum', 'bitcoin', 'distributed ledger technology', 'NFTs', 'virtual reality (vr)', 'augmented reality (ar)', 'mixed reality (mr)', 'game development', 'unity', 'unreal engine', '3D modeling', 'blender', 'maya', 'substance painter', 'digital marketing', 'seo', 'sem', 'content marketing', 'social media marketing', 'email marketing', 'affiliate marketing', 'google adwords', 'facebook ads',
+
+    # Other Tools/Technologies
+    'linux', 'unix', 'windows server', 'macos', 'shell scripting', 'powershell', 'bash', 'zsh', 
+    'vim', 'emacs', 'nano', 'postman', 'swagger', 'api development', 'restful apis', 'graphql', 
+    'websockets', 'message brokers', 'rabbitmq', 'apache kafka', 'microservices architecture', 
+    'serverless architecture', 'containerization', 'virtualization', 'hyper-v', 'vmware', 
+    'oracle virtualbox'
+]
