@@ -8,12 +8,14 @@ Welcome to the Resume Analysis Tool. This application helps you understand how w
 Follow the steps below to get started.
 """)
 
+job_vacancies = st.number_input("Enter the number of job vacancies:", min_value=1, value=1)
+
 with st.expander("Step 1: Upload Your Files"):
     st.markdown("""
-    Please upload the job description and the resumes. Both the job description and the resumes should be in PDF format.
+    Please upload the job description and the resumes. Both the job description and the resumes can be in either PDF or DOCX format.
     """)
-    job_description_file = st.file_uploader("Upload job description (PDF only):", type=['pdf'], key='job_description', accept_multiple_files=False)
-    resume_files = st.file_uploader("Upload resumes (PDF only):", type=['pdf'], key='resumes', accept_multiple_files=True)
+    job_description_file = st.file_uploader("Upload job description (PDF or DOCX):", type=['pdf', 'docx'], key='job_description', accept_multiple_files=False)
+    resume_files = st.file_uploader("Upload resumes (PDF or DOCX):", type=['pdf', 'docx'], key='resumes', accept_multiple_files=True)
 
 if job_description_file is not None and resume_files is not None and len(resume_files) > 0:
     st.markdown("Step 2: Analyzing Your Files...")
@@ -35,11 +37,13 @@ if job_description_file is not None and resume_files is not None and len(resume_
                 }
             })
 
+    # Sort the resumes based on overall score
     results.sort(key=lambda x: x["Details"]["Scores"]["Overall Score"], reverse=True)
 
-    st.subheader("Analysis Results Ranked by Overall Score")
+    # Display the top matching resumes based on the number of job vacancies
+    st.subheader(f"Top {job_vacancies} Resumes Matching the Job Description")
 
-    for result in results:
+    for result in results[:job_vacancies]:
         st.markdown(f"""
         <div style="border-radius:10px; border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
             <h4>{result["Filename"]}</h4>
@@ -65,13 +69,34 @@ if job_description_file is not None and resume_files is not None and len(resume_
         
         st.markdown("</div>", unsafe_allow_html=True)  # Close the div
 
-    st.markdown("""
-    ### Recommendations
-    Based on the analysis, here are some recommendations to improve the resumes:
-    - Ensure all key information is clearly present and easily identifiable in each resume.
-    - Tailor the resumes to include keywords and skills mentioned in the job description.
-    - Highlight relevant experiences and projects that align with the job requirements.
-    """)
+    # Display scores for every resume
+    st.subheader("Scores for Every Resume Matching the Job Description")
+    for result in results:
+        st.markdown(f"""
+        <div style="border-radius:10px; border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
+            <h4>{result["Filename"]}</h4>
+            <p><b>Overall Score:</b> {result["Details"]["Scores"]["Overall Score"]}</p>
+            <p><b>Key Info Score:</b> {result["Details"]["Scores"]["Key Info Score"]}</p>
+            <p><b>Job Description Score:</b> {result["Details"]["Scores"]["Job Description Score"]}</p>
+        </div>
+        """, unsafe_allow_html=True)
+
+        with st.expander("More Details"):
+            key_info_table_data = []
+            for keyword, status, _ in result["Details"]["Key Info"]:
+                keywords = keyword.split(" || ")
+                formatted_keywords = ", ".join(keywords)
+                key_info_table_data.append([formatted_keywords, 'Present' if status=="Yes" else 'Not Present'])
+
+            key_info_table = tabulate(key_info_table_data, headers=['Keyword', 'Status'], tablefmt="pipe", numalign="left")
+            st.markdown(key_info_table, unsafe_allow_html=True)
+            
+            st.markdown("<br>", unsafe_allow_html=True)  # Space between tables
+            
+            common_words_table = tabulate(result["Details"]["Common Words"], headers=['Keyword', 'Occurrences in Resume', 'Occurrences in Job Description'], tablefmt="pipe", numalign="left")
+            st.markdown(common_words_table, unsafe_allow_html=True)
+        
+        st.markdown("</div>", unsafe_allow_html=True)  # Close the div
 
 else:
     st.warning("Please upload the job description and at least one resume to proceed with the analysis.")
