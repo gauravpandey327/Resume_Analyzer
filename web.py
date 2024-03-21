@@ -1,29 +1,43 @@
-import streamlit as st
-from resume_analysis import analyze_resume_and_job_description
-from tabulate import tabulate
+# web.py
 
+import streamlit as st  # Importing Streamlit library for web app development
+from resume_analysis import analyze_resume_and_job_description  # Importing resume analysis function
+from tabulate import tabulate  # Importing tabulate for creating tables
+
+# Setting the title of the web app
 st.title("Resume Analysis Tool")
+
+# Displaying introductory text
 st.markdown("""
 Welcome to the Resume Analysis Tool. This application helps you understand how well various resumes align with a specific job description. 
 Follow the steps below to get started.
 """)
 
+# Input for number of job vacancies
 job_vacancies = st.number_input("Enter the number of job vacancies:", min_value=1, value=1)
 
+# Expander to collapse/expand the file upload section
 with st.expander("Step 1: Upload Your Files"):
+    # Instructions for file upload
     st.markdown("""
     Please upload the job description and the resumes. Both the job description and the resumes can be in either PDF or DOCX format.
     """)
+    # File uploader for job description
     job_description_file = st.file_uploader("Upload job description (PDF or DOCX):", type=['pdf', 'docx'], key='job_description', accept_multiple_files=False)
+    # File uploader for resumes
     resume_files = st.file_uploader("Upload resumes (PDF or DOCX):", type=['pdf', 'docx'], key='resumes', accept_multiple_files=True)
 
 if job_description_file is not None and resume_files is not None and len(resume_files) > 0:
+    # Indicating analysis process
     st.markdown("Step 2: Analyzing Your Files...")
     results = []
 
     for resume_file in resume_files:
+        # Showing loading spinner while analyzing each resume
         with st.spinner(text=f"Analyzing {resume_file.name}..."):
+            # Analyzing each resume
             matched_key_info, matched_common_words, overall_score, score, key_info_score = analyze_resume_and_job_description(resume_file, job_description_file)
+
             results.append({
                 "Filename": resume_file.name,
                 "Details": {
@@ -97,6 +111,6 @@ if job_description_file is not None and resume_files is not None and len(resume_
             st.markdown(common_words_table, unsafe_allow_html=True)
         
         st.markdown("</div>", unsafe_allow_html=True)  # Close the div
-
 else:
+    # Warning message if no files are uploaded
     st.warning("Please upload the job description and at least one resume to proceed with the analysis.")
