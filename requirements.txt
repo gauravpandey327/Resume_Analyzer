@@ -1,4 +1,7 @@
-# os
-PyPDF2
 nltk
-# re
+PyPDF2
+docx2txt
+pdfminer.six
+PyMuPDF
+streamlit
+tabulate
