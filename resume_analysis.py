@@ -3,6 +3,8 @@ import nltk
 from PyPDF2 import PdfReader
 import docx2txt
 from collections import Counter
+from pdfminer.high_level import extract_text
+import fitz
 
 # Ensure NLTK resources are downloaded
 nltk.download('punkt', quiet=True)
@@ -32,10 +34,19 @@ def extract_text_from_file(file):
     """
     if file.type == "application/pdf":
         try:
-            pdf_reader = PdfReader(file)
+            # Read the content of the file stream
+            file.seek(0)
+            pdf_content = file.read()
+            
+            # Open the PDF document using PyMuPDF
+            pdf_document = fitz.open(stream=pdf_content, filetype="pdf")
+            
+            # Extract text from each page
             text = ""
-            for page in pdf_reader.pages:
-                text += page.extract_text()
+            for page_num in range(len(pdf_document)):
+                page = pdf_document.load_page(page_num)
+                text += page.get_text()
+            
             return text
         except Exception as e:
             print(f"Error extracting text from PDF file: {e}")
@@ -106,20 +117,26 @@ def check_key_info_presence(preprocessed_text, key_info):
             matched_info.append([key, "No", weight])
     return key_info_score, matched_info
 
-def analyze_resume_and_job_description(resume_file, job_description_file):
+def analyze_resume_and_job_description(resume_stream, job_description_stream):
     """
     Analyzes the resume and job description, returning the matched key information, job description keywords, and scores.
     """
-    resume_text = extract_text_from_file(resume_file)
-    job_description_text = extract_text_from_file(job_description_file)
-
-    if resume_text is None or job_description_text is None:
-        return [], [], 0, 0, 0
+    resume_text = extract_text_from_file(resume_stream)
+    # print(resume_text)
+    # print("-----*************----------")
+    job_description_text = extract_text_from_file(job_description_stream)
 
     preprocessed_resume_text = preprocess_text(resume_text)
+    # print("-----*************----------")
+    # print(preprocessed_resume_text)
     preprocessed_job_description_text = preprocess_text(job_description_text)
 
     resume_tokens = tokenize_text(preprocessed_resume_text)
+    # print("-----*************----------")
+    # print(resume_tokens)
+    # preprocessed_job_description_text = preprocess_text(job_description_text)
+
+    # resume_tokens = tokenize_text(preprocessed_resume_text)
     job_description_tokens = tokenize_text(preprocessed_job_description_text)
 
     resume_words = remove_stopwords(resume_tokens)
@@ -129,5 +146,6 @@ def analyze_resume_and_job_description(resume_file, job_description_file):
     score, matched_keywords = calculate_keyword_score(resume_words, job_description_words)
 
     overall_final_score = score + key_info_score * 0.5
+    # print(score)
 
     return matched_key_info, matched_keywords, overall_final_score, score, key_info_score
