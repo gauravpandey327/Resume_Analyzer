@@ -171,6 +171,9 @@ def analyze_resume_and_job_description(resume_stream, job_description_stream):
     resume_text = extract_text_from_file(resume_stream)  # Extract text from resume
     job_description_text = extract_text_from_file(job_description_stream)  # Extract text from job description
 
+    if resume_text is None or job_description_text is None:
+        return [], [], 0, 0, 0
+    
     preprocessed_resume_text = preprocess_text(resume_text)  # Preprocess resume text
     preprocessed_job_description_text = preprocess_text(job_description_text)  # Preprocess job description text
 
